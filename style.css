@@ -10,19 +10,18 @@ body {
 body {
     font-family: 'arial', sans-serif;
     color: #333;
-    font-size: 16px;
+    font-size: 17px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 #feh-sleek-cards {
     width: 800px;
-    border: 2px solid red;
 }
     #cards-wrapper {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: repeat(7, 1fr);
+        grid-template-rows: 225px 325px;
         gap: 20px;
     }
         .card {
@@ -31,12 +30,89 @@ body {
             justify-content: space-between;
             color: white;
             padding: 20px;
-        } 
-        .card-1 { grid-area: 1 / 1 / 2 / 5; background-color: red;}
-        .card-2 { grid-area: 1 / 5 / 2 / 7; background-color: blue; }
-        .card-3 { grid-area: 2 / 1 / 3 / 3; background-color: green; }
-        .card-4 { grid-area: 2 / 3 / 3 / 5; background-color: yellow; }
-        .card-5 { grid-area: 2 / 5 / 3 / 7; background-color: pink; }
+            border-radius: 7px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: 0.1s all ease-in-out;
+        }
+        .card-1 { grid-area: 1 / 1 / 1 / 5; }
+        .card-2 { grid-area: 1 / 5 / 2 / 7; }
+        .card-3 { grid-area: 2 / 1 / 3 / 3; }
+        .card-4 { grid-area: 2 / 3 / 3 / 5; }
+        .card-5 { grid-area: 2 / 5 / 3 / 7; }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+        .card p { line-height: 26px; }
+        .card-1 p { width: 50%; }
 
 
-
+    .card::before,
+    .card::after {
+      content: "";
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      filter: blur(20px);
+      mix-blend-mode: overlay;
+      background-size: 200% 200%;
+    }
+    /* First layer */
+    .card::before {
+      background: linear-gradient(45deg, #ff6ec4, #7873f5, #4adede, #f5a623);
+    }
+    /* Second layer */
+    .card::after {
+      background: linear-gradient(135deg, #4adade, #f5a623, #ff6ec4, #7873f5);
+    }
+    /* Hover: make the layers visible and animate */
+    .card:hover::before {
+      opacity: 1;
+      animation: blob1 3s infinite ease-in-out;
+    }
+    .card:hover::after {
+      opacity: 1;
+      animation: blob2 5s infinite ease-in-out;
+    }
+    /* Keyframes for the first blob animation */
+    @keyframes blob1 {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        background-position: 0% 50%;
+      }
+      33% {
+        transform: translate(-10%, 10%) rotate(10deg);
+        background-position: 50% 50%;
+      }
+      66% {
+        transform: translate(10%, -10%) rotate(-10deg);
+        background-position: 100% 50%;
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+        background-position: 0% 50%;
+      }
+    }
+    /* Keyframes for the second blob animation */
+    @keyframes blob2 {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        background-position: 100% 50%;
+      }
+      33% {
+        transform: translate(10%, 10%) rotate(-5deg);
+        background-position: 50% 50%;
+      }
+      66% {
+        transform: translate(-10%, -10%) rotate(5deg);
+        background-position: 0% 50%;
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+        background-position: 100% 50%;
+      }
+    }
