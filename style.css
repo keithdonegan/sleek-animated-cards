@@ -63,7 +63,13 @@ body {
     }
     /* First layer */
     .card::before {
-      background: linear-gradient(45deg, #ff6ec4, #7873f5, #4adede, #f5a623);
+      /* background: linear-gradient(45deg, #ff6ec4, #7873f5, #4adede, #f5a623); */
+
+        background: radial-gradient(circle, 
+        #ff5733 0%,    /* Start with a vibrant red-orange */
+        #33ff57 33%,   /* Transition to a bright green */
+        #3357ff 66%,   /* Then a cool blue */
+        #ff33a8 100%); /* End with a bold pink */
     }
     /* Second layer */
     .card::after {
