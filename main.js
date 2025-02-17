@@ -17,9 +17,10 @@ const orbSettings = Array.from(orbs).map(orb => {
   
   return {
     amplitude: Math.random() * 30 + 20,           // amplitude between 20 and 50px
-    frequency: Math.random() * 0.001 + 0.001,    // frequency factor
-    phaseX: Math.random() * Math.PI * 22,            // random phase offset for X
-    phaseY: Math.random() * Math.PI * 22,            // random phase offset for Y
+    frequency: Math.random() * 0.001 + 0.001,       // frequency factor
+    phaseX: Math.random() * Math.PI * 22,           // random phase offset for X
+    phaseY: Math.random() * Math.PI * 22,           // random phase offset for Y
+    direction: Math.random() < 0.5 ? 1 : -1,        // randomly alternate spin direction
     offsetX: 0,                                   // current X offset (for easing)
     offsetY: 0,                                   // current Y offset (for easing)
     baseXFactor,                                  // relative horizontal anchor (0 to 1)
@@ -38,8 +39,8 @@ function animate(timestamp) {
     let targetOffsetX = 0;
     let targetOffsetY = 0;
     if (hovered) {
-      targetOffsetX = settings.amplitude * Math.sin(elapsed * settings.frequency + settings.phaseX);
-      targetOffsetY = settings.amplitude * Math.cos(elapsed * settings.frequency + settings.phaseY);
+      targetOffsetX = settings.amplitude * Math.sin(elapsed * settings.frequency * settings.direction + settings.phaseX);
+      targetOffsetY = settings.amplitude * Math.cos(elapsed * settings.frequency * settings.direction + settings.phaseY);
     }
     
     // Ease the current offset toward the target offset
