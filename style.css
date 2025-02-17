@@ -16,7 +16,6 @@ body {
     justify-content: center;
 }
 
-/* 
 #feh-sleek-cards {
     width: 800px;
 }
@@ -27,16 +26,13 @@ body {
         gap: 20px;
     }
         .card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             color: white;
             padding: 20px;
             border-radius: 7px;
             text-decoration: none;
             position: relative;
             overflow: hidden;
-            transition: 0.1s all ease-in-out;
+            /* background: #34A0A4; */
         }
         .card-1 { grid-area: 1 / 1 / 1 / 5; }
         .card-2 { grid-area: 1 / 5 / 2 / 7; }
@@ -44,42 +40,11 @@ body {
         .card-4 { grid-area: 2 / 3 / 3 / 5; }
         .card-5 { grid-area: 2 / 5 / 3 / 7; }
 
-        .card:hover {
-            transform: scale(1.03);
-        }
         .card p { line-height: 26px; }
         .card-1 p { width: 50%; }
-
-
-    .card::before,
-    .card::after {
-      content: "";
-      position: absolute;
-      top: -60%;
-      left: -60%;
-      width: 220%;
-      height: 220%;
-      filter: blur(20px);
-      mix-blend-mode: overlay;
-      background-size: 200% 200%;
-    }
-    /* First layer */
    
 
 
-
-
-
-
-    .card {
-      position: relative;
-      width: 300px;
-      height: 200px;
-      margin: 20px;
-      border: 1px solid #ccc;
-      overflow: hidden;
-      background: #fff;
-    }
     
     .orbs {
       position: absolute;
@@ -87,8 +52,20 @@ body {
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* so orbs don't block interactions */
-      background: #34A0A4;
+    }
+    .card-1 .orbs { background: #0b4a4c; }
+    .card-2 .orbs { background: #0d305a; }
+    .card-3 .orbs { background: #7a5223; }
+    .card-4 .orbs { background: #7e1717; }
+    .card-5 .orbs { background: #661364; }
+
+	.card-content {
+      	z-index: 1;
+      	position: relative;
+      	display: flex;
+		flex-direction: column;
+      	justify-content: space-between;
+		height: 100%;
     }
     
     .orb {
@@ -96,19 +73,6 @@ body {
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
-      mix-blend-mode: hard-light;
+      mix-blend-mode: soft-light;
       filter: blur(12px);
     }
-    
-    /* Set orb sizes based on the data-size attribute */
-    .orb[data-size="300"] { width: 300px; height: 300px; }
-    .orb[data-size="250"] { width: 250px; height: 250px; }
-    .orb[data-size="275"] { width: 275px; height: 275px; }
-    .orb[data-size="200"] { width: 225px; height: 225px; }
-    
-    .content {
-      position: relative;
-      z-index: 1;
-      padding: 20px;
-    }
-    
