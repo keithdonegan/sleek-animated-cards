@@ -3,34 +3,27 @@ const orbs = document.querySelectorAll('.orb');
 let hovered = false;
 let startTime = null;
 
-// Initialize each orb’s movement settings using its data attributes
+// Initialize each orb’s movement settings based on its data attributes
 const orbSettings = Array.from(orbs).map(orb => {
-  // Base positions are provided as percentages (0-100)
-  const baseX = parseFloat(orb.dataset.baseX) || 50;
-  const baseY = parseFloat(orb.dataset.baseY) || 50;
+  // Read the base position (as a fraction of the card size)
+  const baseXFactor = parseFloat(orb.dataset.baseX) || 0.5;
+  const baseYFactor = parseFloat(orb.dataset.baseY) || 0.5;
   
-  // Set the orb's size using its data-size (in % relative to the card's width)
-  const size = orb.dataset.size;
-  if (size) {
-    orb.style.width = size + '%';
-    orb.style.height = size + '%';
-  }
-  
-  // Set the orb's background using its pastel color (via a radial gradient)
+  // Set the orb's background based on its data-color
   const color = orb.dataset.color;
   if (color) {
-    orb.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+    orb.style.background = `radial-gradient(circle, ${color} 0%, transparent 100%)`; 
   }
   
   return {
-    amplitude: Math.random() * 3 + 2,       // Amplitude between 2% and 5% offset
-    frequency: Math.random() * 0.002 + 0.001, // Frequency factor
-    phaseX: Math.random() * Math.PI * 2,      // Random phase offset for X
-    phaseY: Math.random() * Math.PI * 2,      // Random phase offset for Y
-    offsetX: 0,                             // Current X offset (in percentage)
-    offsetY: 0,                             // Current Y offset (in percentage)
-    baseX, // Base X position (in %)
-    baseY  // Base Y position (in %)
+    amplitude: Math.random() * 30 + 20,           // amplitude between 20 and 50px
+    frequency: Math.random() * 0.001 + 0.001,    // frequency factor
+    phaseX: Math.random() * Math.PI * 22,            // random phase offset for X
+    phaseY: Math.random() * Math.PI * 22,            // random phase offset for Y
+    offsetX: 0,                                   // current X offset (for easing)
+    offsetY: 0,                                   // current Y offset (for easing)
+    baseXFactor,                                  // relative horizontal anchor (0 to 1)
+    baseYFactor                                   // relative vertical anchor (0 to 1)
   };
 });
 
@@ -41,33 +34,35 @@ function animate(timestamp) {
   orbs.forEach((orb, index) => {
     const settings = orbSettings[index];
     
-    // Compute the target offset based on a sine/cosine oscillation if hovered;
-    // otherwise, target offset is 0 (i.e. the orb returns to its base position)
+    // Calculate target offset if hovered; otherwise, target is zero offset.
     let targetOffsetX = 0;
     let targetOffsetY = 0;
-    
     if (hovered) {
       targetOffsetX = settings.amplitude * Math.sin(elapsed * settings.frequency + settings.phaseX);
       targetOffsetY = settings.amplitude * Math.cos(elapsed * settings.frequency + settings.phaseY);
     }
     
-    // Easing: smoothly interpolate the current offset towards the target offset
-    const easeFactor = 0.1; // Adjust this value for a different smoothing effect
+    // Ease the current offset toward the target offset
+    const easeFactor = 0.035;
     settings.offsetX += (targetOffsetX - settings.offsetX) * easeFactor;
     settings.offsetY += (targetOffsetY - settings.offsetY) * easeFactor;
     
-    // Compute the orb's new position by adding the offset (in %) to its base position
-    const orbX = settings.baseX + settings.offsetX;
-    const orbY = settings.baseY + settings.offsetY;
+    // Compute each orb's base position based on the card dimensions and its custom factors
+    const cardBaseX = card.clientWidth * settings.baseXFactor;
+    const cardBaseY = card.clientHeight * settings.baseYFactor;
     
-    orb.style.left = orbX + '%';
-    orb.style.top = orbY + '%';
+    // Apply the current offset
+    const orbX = cardBaseX + settings.offsetX;
+    const orbY = cardBaseY + settings.offsetY;
+    
+    orb.style.left = orbX + 'px';
+    orb.style.top = orbY + 'px';
   });
-  
+
   requestAnimationFrame(animate);
 }
 
-// When the mouse enters the card, start the oscillation; when it leaves, ease back.
+// Toggle the hover state on the card to start/stop the floating effect
 card.addEventListener('mouseenter', () => {
   hovered = true;
 });
