@@ -23,7 +23,7 @@ body {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-template-rows: 225px 325px;
-        gap: 20px;
+        gap: 10px;
     }
         .card {
             color: white;
@@ -43,9 +43,6 @@ body {
         .card p { line-height: 26px; }
         .card-1 p { width: 50%; }
    
-
-
-    
     .orbs {
       position: absolute;
       top: 0;
@@ -67,6 +64,10 @@ body {
       	justify-content: space-between;
 		height: 100%;
     }
+		.card-content h3 {
+  			font-family: "Baskervville", serif;
+			font-size: 26px;
+		}
     
     .orb {
       position: absolute;
