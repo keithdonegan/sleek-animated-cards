@@ -67,6 +67,22 @@ body {
   			font-family: "Baskervville", serif;
 			font-size: 26px;
 		}
+        .card-btn {
+            position: relative;
+        }
+        .card-btn::after {
+            content: "";
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            right: 0;
+            top: 3px;
+            background: url(arrow.svg) no-repeat;
+            transition: all 0.3s ease;
+        }
+        .card:hover .card-btn::after {
+            transform: translateX(5px);
+        }
     
     .orb {
     	position: absolute;
@@ -74,5 +90,5 @@ body {
       	transform: translate(-50%, -50%);
       	pointer-events: none;
       	mix-blend-mode: soft-light;
-      	filter: blur(12px);
+      	filter: blur(8px);
     }
