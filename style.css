@@ -33,6 +33,7 @@ body {
             position: relative;
             overflow: hidden;
         }
+
         .card-1 { grid-area: 1 / 1 / 1 / 5; }
         .card-2 { grid-area: 1 / 5 / 2 / 7; }
         .card-3 { grid-area: 2 / 1 / 3 / 3; }
