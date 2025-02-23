@@ -72,22 +72,10 @@ cards.forEach(card => {
 
 	card.addEventListener('mouseenter', () => {
 		hovered = true;
-		// Add a class to all other cards on hover
-		cards.forEach(otherCard => {
-			if (otherCard !== card) {
-				otherCard.classList.add('inactive'); 
-			}
-		});
 	});
 
 	card.addEventListener('mouseleave', () => {
 		hovered = false;
-		// Remove the class from all other cards when hover ends
-		cards.forEach(otherCard => {
-			if (otherCard !== card) {
-				otherCard.classList.remove('inactive');
-			}
-		});
 	});
 
 	requestAnimationFrame(animate);
