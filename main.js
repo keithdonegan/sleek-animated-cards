@@ -38,6 +38,7 @@ cards.forEach(card => {
 		};
 	});
 
+	// Let's animate shiz
 	function animate(timestamp) {
 		if (!startTime) startTime = timestamp;
 		const elapsed = timestamp - startTime;
